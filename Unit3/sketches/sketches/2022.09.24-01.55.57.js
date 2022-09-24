@@ -24,6 +24,7 @@ const sketch = () => {
     context.fill(); 
 
     context.restore(); 
+    
   };
 };
 
