@@ -29,6 +29,7 @@ const sketch = ({ context, width, height }) => {
         
         context.lineWidth = math.mapRange(dist, 0, 200, 12, 1);
 
+
         context.beginPath(); 
         context.moveTo(agent.pos.x, agent.pos.y); 
         context.lineTo(other.pos.x, other.pos.y);
@@ -38,7 +39,8 @@ const sketch = ({ context, width, height }) => {
     agents.forEach(agent => {
       agent.update();
       agent.draw(context);
-      agent.bounce(width, height);
+      agent.wrap(width, height);
+      // agent.bounce(width, height);
     })
   };
 };
@@ -74,6 +76,12 @@ class Agent{
   update(){
     this.pos.x += this.vel.x;
     this.pos.y += this.vel.y;
+  }
+  wrap(width, height){
+    if(this.pos.x > width) this.pos.x = 0;
+    if(this.pos.x < 0) this.pos.x = width;
+    if(this.pos.y > height) this.pos.y = 0; 
+    if(this.pos.y < 0) this.pos.y = height;
   }
 
   draw(context){
